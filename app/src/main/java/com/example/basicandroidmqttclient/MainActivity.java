@@ -18,7 +18,7 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.example.basicandroidmqttclient.MESSAGE";
-    public static final String brokerURI = "3.223.10.115";
+    public static final String brokerURI = "54.147.89.192";
 
     Activity thisActivity;
     TextView subMsgTextView;
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         thisActivity = this;
-        subMsgTextView = (TextView) findViewById(R.id.editTextMultiLineSubMsg);
+        // subMsgTextView = (TextView) findViewById(R.id.editTextMultiLineSubMsg);
     }
 
     /** Called when the user taps the Send button */
@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
         client.disconnect();
 
         String message = topicName.getText().toString() + " " + value.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
+        /*intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);*/
     }
 
     public void sendSubscription(View view) {
@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 .callback(msg -> {
                     thisActivity.runOnUiThread(new Runnable() {
                         public void run() {
-                            //tv.setText(msg.toString());
                             subMsgTextView.setText(new String(msg.getPayloadAsBytes(), StandardCharsets.UTF_8));
                         }
                     });
