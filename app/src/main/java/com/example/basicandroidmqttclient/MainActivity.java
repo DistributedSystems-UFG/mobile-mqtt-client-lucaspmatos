@@ -21,7 +21,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String brokerURI = "54.147.89.192";
 
     Activity thisActivity;
-    TextView subMsgTextView;
+    TextView tempText;
+    TextView lightText;
+    TextView dateText;
+    TextView batteryText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +32,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         thisActivity = this;
-        // subMsgTextView = (TextView) findViewById(R.id.editTextMultiLineSubMsg);
+        tempText = (TextView) findViewById(R.id.tempText);
+        lightText = (TextView) findViewById(R.id.lightText);
+        dateText = (TextView) findViewById(R.id.dateText);
+        batteryText = (TextView) findViewById(R.id.batteryText);
     }
 
     /** Called when the user taps the Send button */
@@ -69,7 +75,20 @@ public class MainActivity extends AppCompatActivity {
                 .callback(msg -> {
                     thisActivity.runOnUiThread(new Runnable() {
                         public void run() {
-                            subMsgTextView.setText(new String(msg.getPayloadAsBytes(), StandardCharsets.UTF_8));
+                            switch (topicName.getText().toString()) {
+                                case "temp":
+                                    tempText.setText(new String(msg.getPayloadAsBytes(), StandardCharsets.UTF_8));
+                                    break;
+                                case "light":
+                                    lightText.setText(new String(msg.getPayloadAsBytes(), StandardCharsets.UTF_8));
+                                    break;
+                                case "date":
+                                    dateText.setText(new String(msg.getPayloadAsBytes(), StandardCharsets.UTF_8));
+                                    break;
+                                case "battery":
+                                    batteryText.setText(new String(msg.getPayloadAsBytes(), StandardCharsets.UTF_8));
+                                    break;
+                            }
                         }
                     });
                 })
