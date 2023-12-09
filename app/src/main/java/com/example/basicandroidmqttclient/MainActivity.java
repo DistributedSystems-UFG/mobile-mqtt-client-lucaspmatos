@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     TextView dateText;
     TextView batteryText;
 
+    EditText value;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,26 +38,19 @@ public class MainActivity extends AppCompatActivity {
         lightText = (TextView) findViewById(R.id.lightText);
         dateText = (TextView) findViewById(R.id.dateText);
         batteryText = (TextView) findViewById(R.id.batteryText);
+        value = (EditText) findViewById(R.id.editTextValue);
     }
 
     /** Called when the user taps the Send button */
     public void publishMessage(View view) {
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
-        EditText topicName = (EditText) findViewById(R.id.editTextTopicName);
-        EditText value = (EditText) findViewById(R.id.editTextValue);
-
         Mqtt5BlockingClient client = Mqtt5Client.builder()
                 .identifier(UUID.randomUUID().toString())
                 .serverHost(brokerURI)
                 .buildBlocking();
 
         client.connect();
-        client.publishWith().topic(topicName.getText().toString()).qos(MqttQos.AT_LEAST_ONCE).payload(value.getText().toString().getBytes()).send();
+        client.publishWith().topic("minimum").qos(MqttQos.AT_LEAST_ONCE).payload(value.getText().toString().getBytes()).send();
         client.disconnect();
-
-        String message = topicName.getText().toString() + " " + value.getText().toString();
-        /*intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);*/
     }
 
     public void sendSubscription(View view) {
@@ -70,31 +65,51 @@ public class MainActivity extends AppCompatActivity {
 
         // Use a callback to show the message on the screen
         client.toAsync().subscribeWith()
-                .topicFilter(topicName.getText().toString())
+                .topicFilter("temp")
                 .qos(MqttQos.AT_LEAST_ONCE)
                 .callback(msg -> {
                     thisActivity.runOnUiThread(new Runnable() {
                         public void run() {
-                            switch (topicName.getText().toString()) {
-                                case "temp":
-                                    tempText.setText(new String(msg.getPayloadAsBytes(), StandardCharsets.UTF_8));
-                                    break;
-                                case "light":
-                                    lightText.setText(new String(msg.getPayloadAsBytes(), StandardCharsets.UTF_8));
-                                    break;
-                                case "date":
-                                    dateText.setText(new String(msg.getPayloadAsBytes(), StandardCharsets.UTF_8));
-                                    break;
-                                case "battery":
-                                    batteryText.setText(new String(msg.getPayloadAsBytes(), StandardCharsets.UTF_8));
-                                    break;
-                            }
+                            tempText.setText(new String(msg.getPayloadAsBytes(), StandardCharsets.UTF_8));
+                        }
+                    });
+                })
+                .send();
+
+        client.toAsync().subscribeWith()
+                .topicFilter("light")
+                .qos(MqttQos.AT_LEAST_ONCE)
+                .callback(msg -> {
+                    thisActivity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            lightText.setText(new String(msg.getPayloadAsBytes(), StandardCharsets.UTF_8));
+                        }
+                    });
+                })
+                .send();
+
+        client.toAsync().subscribeWith()
+                .topicFilter("date")
+                .qos(MqttQos.AT_LEAST_ONCE)
+                .callback(msg -> {
+                    thisActivity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            dateText.setText(new String(msg.getPayloadAsBytes(), StandardCharsets.UTF_8));
+                        }
+                    });
+                })
+                .send();
+
+        client.toAsync().subscribeWith()
+                .topicFilter("battery")
+                .qos(MqttQos.AT_LEAST_ONCE)
+                .callback(msg -> {
+                    thisActivity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            batteryText.setText(new String(msg.getPayloadAsBytes(), StandardCharsets.UTF_8));
                         }
                     });
                 })
                 .send();
     }
-
-
-
 }

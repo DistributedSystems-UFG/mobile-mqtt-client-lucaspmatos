@@ -7,50 +7,27 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textViewTopic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="64dp"
-        android:text="Tópico:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextTopicName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="48dp"
-        android:ems="10"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.463"
-        app:layout_constraintStart_toEndOf="@+id/textViewTopic"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textViewValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="95dp"
         android:text="Valor mínimo:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTopic" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/editTextValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="83dp"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.12"
         app:layout_constraintStart_toEndOf="@+id/textViewValue"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTopicName" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonPublish"
@@ -114,7 +91,7 @@
         android:id="@+id/temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="82dp"
+        android:layout_marginStart="87dp"
         android:layout_marginTop="52dp"
         android:text="Temperatura"
         android:textStyle="bold"
@@ -125,12 +102,10 @@
         android:id="@+id/dateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="81dp"
+        android:layout_marginStart="38dp"
         android:layout_marginTop="17dp"
-        android:layout_marginEnd="114dp"
-        android:text="0/0/0"
+        android:text="00/00/0000"
         android:textSize="34sp"
-        app:layout_constraintEnd_toStartOf="@+id/batteryText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date" />
 
@@ -138,7 +113,7 @@
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="109dp"
+        android:layout_marginStart="114dp"
         android:layout_marginTop="34dp"
         android:text="Data"
         android:textStyle="bold"
@@ -149,12 +124,10 @@
         android:id="@+id/tempText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="110dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="139dp"
-        android:text="0"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="18dp"
+        android:text="000"
         android:textSize="48sp"
-        app:layout_constraintEnd_toStartOf="@+id/lightText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/temp" />
 
@@ -162,21 +135,27 @@
         android:id="@+id/light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="94dp"
         android:layout_marginTop="52dp"
-        android:layout_marginEnd="74dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="18dp"
         android:text="Luminosidade"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/lightText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/temp"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <TextView
         android:id="@+id/battery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
-        android:layout_marginEnd="103dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="86dp"
+        android:layout_marginBottom="18dp"
         android:text="Bateria"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/batteryText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lightText" />
 
@@ -184,20 +163,22 @@
         android:id="@+id/lightText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="112dp"
-        android:text="0"
+        android:layout_marginStart="99dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="68dp"
+        android:text="000"
         android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tempText"
         app:layout_constraintTop_toBottomOf="@+id/light" />
 
     <TextView
         android:id="@+id/batteryText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="116dp"
-        android:text="0"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="90dp"
+        android:text="00"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/battery" />
